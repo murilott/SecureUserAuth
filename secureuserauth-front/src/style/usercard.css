@@ -1,0 +1,12 @@
+.userCard {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    border-radius: 15px;
+    background-color: beige;
+    max-width: 30%;
+}
+
+.userCard p {
+    margin: 8px;
+}

@@ -1,0 +1,56 @@
+package com.example.securepostauth.service.serviceImpl;
+
+import java.util.List;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.example.secureuserauth.dto.request.CreatePostRequestDto;
+import com.example.secureuserauth.dto.response.PostResponseDto;
+import com.example.secureuserauth.entity.Post;
+import com.example.secureuserauth.enums.Role;
+import com.example.secureuserauth.exception.PostException;
+import com.example.secureuserauth.mapper.PostMapper;
+import com.example.secureuserauth.repository.PostRepository;
+import com.example.secureuserauth.service.PostService;
+
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Service
+@AllArgsConstructor
+public class PostServiceImpl implements PostService {
+    private final PostRepository repository;
+    private final UserRepository userRepository;
+    private final PostMapper mapper;
+
+    private final PasswordEncoder encoder;
+
+    @Override
+    public List<PostResponseDto> getAll() {
+        return mapper.toDtoList(repository.findAll());
+    }
+
+    @Override
+    public PostResponseDto create(CreatePostRequestDto postDto) {
+        User author = userRepository
+            .findById(postDto.getAuthorId())
+            .orElseThrow(() -> new EntityNotFoundException("User not found"));
+
+        Post post = Post.newPost(author,
+                postDto.getTitle(),
+                postDto.getContent()
+        Post savedPost = repository.save(post);
+
+        log.info("Post created successfully: {}", mapper.toDto(savedPost).toString());
+
+        return mapper.toDto(savedPost);
+    }
+
+    @Override
+    public void delete(Long id) {
+        // TODO Auto-generated method stub
+
+    }
+}
