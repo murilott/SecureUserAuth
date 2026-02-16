@@ -12,7 +12,7 @@ import com.example.secureuserauth.entity.Post;
 public interface PostMapper {
     @Mapping(source = "author.id", target = "authorId")
     @Mapping(source = "author.name", target = "authorName")
-    UserResponseDto toDto(Post post);
+    PostResponseDto toDto(Post post);
 
     List<PostResponseDto> toDtoList(List<Post> post);
 }
