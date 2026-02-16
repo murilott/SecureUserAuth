@@ -1,0 +1,45 @@
+.postCard {
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    background-color: rgb(255, 255, 205);
+    margin-bottom: 15px;
+}
+
+.postCard p {
+    margin: 8px;
+}
+
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(221, 199, 173);
+    padding: 5px;
+    align-items: center;
+}
+
+.post-header-title {
+    display: flex;
+    column-gap: 10px;
+    align-items: center;
+    padding: 8px;
+}
+
+.post-header-title > h4 {
+    /* padding: 10px; */
+    margin: 0;;
+}
+
+.post-header-title > span {
+    font-size: 13px;
+    margin-top: 8px;
+}
+
+.post-header > span {
+    font-size: 12px;
+    /* padding-right: 10px; */
+}
+
+.post-body {
+    padding: 10px;
+}

@@ -1,0 +1,16 @@
+.post-list {
+    max-height: 400px;
+    overflow: scroll;
+}
+
+.new-post {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    align-items: center;
+}
+
+.post-comps {
+    display: flex;
+    gap: 10px;
+}

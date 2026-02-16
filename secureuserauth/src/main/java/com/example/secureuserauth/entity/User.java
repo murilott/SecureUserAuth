@@ -1,14 +1,13 @@
 package com.example.secureuserauth.entity;
 
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.ArrayList;
-import java.util.Collection;
 
 import com.example.secureuserauth.enums.Role;
 import com.example.secureuserauth.exception.UserException;
@@ -31,8 +30,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -63,11 +62,11 @@ public class User implements UserDetails{
     private String email;
 
     @OneToMany(
-        mappedBy = "user",
+        mappedBy = "author",
         cascade = CascadeType.ALL,
         orphanRemoval = false
     )
-    private List<Post> posts;
+    private List<Post> posts = new ArrayList<>();
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "perfil_cargos", joinColumns = @JoinColumn(name = "perfil_id"))
