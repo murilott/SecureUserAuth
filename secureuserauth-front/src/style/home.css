@@ -1,6 +1,7 @@
 .post-list {
     max-height: 400px;
     overflow: auto;
+    scrollbar-width: thin;
 }
 
 .new-post {

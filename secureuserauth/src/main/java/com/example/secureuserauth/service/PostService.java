@@ -8,5 +8,5 @@ import com.example.secureuserauth.dto.response.PostResponseDto;
 public interface PostService {
     public List<PostResponseDto> getAll();
     public PostResponseDto create(CreatePostRequestDto postDto);
-    public void delete(Long id);
+    public boolean delete(Long postId, Long userId);
 }

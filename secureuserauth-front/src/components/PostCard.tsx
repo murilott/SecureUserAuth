@@ -1,3 +1,6 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useAuth } from '../auth/useAuth';
+import { deletePost } from '../service/PostService';
 import type { PostDto } from '../types/PostDto';
 // import "../style/postcard.css"
 
@@ -6,6 +9,20 @@ interface PostCardProps {
 }
 
 function PostCard({ post }: PostCardProps) {
+    const { isAdmin, user } = useAuth();
+
+    const queryClient = useQueryClient();
+
+    const { mutate: deletePostMutation, isPending } = useMutation({
+        mutationFn: deletePost,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['posts'] });
+        },
+        onError: (error) => {
+            console.error("Error on delete:", error);
+        }
+    });
+
     if (!post) { return }
 
     return (
@@ -20,7 +37,14 @@ function PostCard({ post }: PostCardProps) {
 
             <div className='post-body'>
                 <p>{post.content}</p>
+
+                {(isAdmin || user?.id == post.authorId) &&
+                    <button onClick={() => deletePostMutation(post.id)} className='delete-button'>Delete</button>
+                }
+
+                {isPending && <span>Deleting...</span>}
             </div>
+
         </div>
     )
 }

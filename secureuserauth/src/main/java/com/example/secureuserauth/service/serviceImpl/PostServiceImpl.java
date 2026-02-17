@@ -12,6 +12,7 @@ import com.example.secureuserauth.mapper.PostMapper;
 import com.example.secureuserauth.repository.PostRepository;
 import com.example.secureuserauth.repository.UserRepository;
 import com.example.secureuserauth.service.PostService;
+import com.example.secureuserauth.service.UserService;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
@@ -47,8 +48,30 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void delete(Long id) {
-        // TODO Auto-generated method stub
+    public boolean delete(Long postId, Long userId) {
+        User user = userRepository
+            .findById(userId)
+            .orElseThrow(() -> new EntityNotFoundException("User not found"));
+        
+        Post post = repository
+            .findById(postId)
+            .orElseThrow(() -> new EntityNotFoundException("Post not found"));
+        
+        boolean isAuthorized = false;
 
+        if (user.isAdmin() || post.getAuthor().getId().equals(user.getId())) {
+            isAuthorized = true;
+        }
+
+        if (isAuthorized) {
+            user.getPosts().remove(post);
+            repository.delete(post);
+
+            userRepository.save(user);
+
+            return true;
+        } else {
+            throw new RuntimeException("User unauthorized, cannot delete post. Roles=" + user.getRoles().toString());
+        }
     }
 }

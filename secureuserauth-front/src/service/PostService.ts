@@ -18,3 +18,7 @@ export const createPost = async (
 
     return response.data;
 };
+
+export const deletePost = async (postId: number | null): Promise<void> => {
+  await api.delete(`/api/v1/post/delete/${postId}`);
+};

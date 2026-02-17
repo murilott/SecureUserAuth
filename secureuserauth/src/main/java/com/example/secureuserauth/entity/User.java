@@ -119,6 +119,10 @@ public class User implements UserDetails{
         this.getRoles().addAll(rolesToAdd);
     }
 
+    public boolean isAdmin() {
+        return this.getRoles().contains(Role.ADMIN);
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.getRoles().stream()

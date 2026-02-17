@@ -13,6 +13,8 @@ function Register() {
     const [registerResponse, setRegisterResponse] = useState<RegisterResponseDto>(registerResponseNew);
     const [errors, setErrors] = useState<UserRegisterError | null>(null);
 
+    const [pass, setPass] = useState<boolean>(false);
+
     const navigate = useNavigate();
 
     const handleFormChange = (e:
@@ -69,16 +71,18 @@ function Register() {
 
                     <div>
                         <label htmlFor="password">Password</label>
-                        <input type="text" name='password' value={registerResponse.password} onChange={handleFormChange} />
+                        <input onFocus={() => setPass(true)} onBlur={() => setPass(false)} type="text" name='password' value={registerResponse.password} onChange={handleFormChange} />
                     </div>
+
+                    {pass && <p>Password must be at least 8 characters long</p>}
 
                     <button type='submit'>Register</button>
 
-                    {isPending && 
+                    {isPending &&
                         <p>Registering user...</p>
                     }
 
-                    {errors && 
+                    {errors &&
                         <div>
                             <p>Error:</p>
                             <p>{errors?.email && "Email: " + errors?.email}</p>

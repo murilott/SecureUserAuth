@@ -10,8 +10,7 @@ import { isUserRegisterError, type UserRegisterError } from '../error/error.type
 function Login() {
     const [loginResponse, setLoginResponse] = useState<LoginResponseDto>(loginResponseNew);
     const [errors, setErrors] = useState<UserRegisterError | null>(null);
-
-
+    
     const { loginToken } = useAuth();
 
     const navigate = useNavigate();
@@ -69,7 +68,7 @@ function Login() {
                     </div>
 
                     <button type='submit'>Login</button>
-                    <button type='button'>Forgot password</button>
+                    {/* <button type='button'>Forgot password</button> */}
 
                     {isPending &&
                         <p>Loading...</p>

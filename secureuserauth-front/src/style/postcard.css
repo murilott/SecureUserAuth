@@ -41,5 +41,13 @@
 }
 
 .post-body {
+    display: flex;
     padding: 10px;
+    justify-content: space-between;
+    overflow: auto;
+}
+
+.delete-button {
+    align-self: flex-end;
+
 }
