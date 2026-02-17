@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.secureuserauth.dto.request.RegisterUserRequestDto;
+import com.example.secureuserauth.dto.response.PostResponseDto;
 import com.example.secureuserauth.dto.response.UserResponseDto;
+import com.example.secureuserauth.entity.User;
+import com.example.secureuserauth.mapper.PostMapper;
 import com.example.secureuserauth.service.UserService;
 
 import jakarta.validation.Valid;
@@ -32,5 +36,10 @@ public class UserController {
     public ResponseEntity<UserResponseDto> createUser(@Valid @RequestBody RegisterUserRequestDto userDto) {
         UserResponseDto user = service.create(userDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
+    }
+
+    @GetMapping("/posts")
+    public ResponseEntity<List<PostResponseDto>> getPosts(@AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(service.getUserPosts(user.getId()));
     }
 }

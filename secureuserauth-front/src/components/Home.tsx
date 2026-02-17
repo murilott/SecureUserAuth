@@ -11,6 +11,7 @@ import type { ApiAxiosError } from '../utils/errors';
 import PostCard from './PostCard';
 import "../style/postcard.css"
 import "../style/home.css"
+import PostList from './PostList';
 
 function Home() {
     const [postDrafting, setPostDrafting] = useState<boolean>(false);
@@ -130,15 +131,7 @@ function Home() {
                             <div>
                                 <h3>All posts</h3>
 
-                                {(posts ?? []).length == 0 && !isLoading && !error &&
-                                    <p>No posts found.</p>
-                                }
-
-                                <div className='post-list'>
-                                    {posts?.map((post) => (
-                                        <PostCard post={post} />
-                                    ))}
-                                </div>
+                                <PostList posts={posts} isLoading={isLoading} error={error} />
                                 
                             </div>
                         }
