@@ -12,9 +12,12 @@ Como usar (Vscode):
 - É possível apagar suas postagens e o usuário admin pode apagar qualquer postagem
 
 Problemas conhecidos: 
-- Ao expirar o token de acesso, é necessário recarregar a páginas duas vezes para surtir as mudanças.
+- Ao expirar o token de acesso, é necessário recarregar a páginas duas vezes para surtir as mudanças
 - Mensagens de erro no login e registro não são mostradas corretamente
 
 Possíveis implementações: 
 - Elevar cargos de usuários
 - Redefinir senha
+- Salvar access token no banco
+- Blacklist de access token
+- Tornar um usuário moderador
