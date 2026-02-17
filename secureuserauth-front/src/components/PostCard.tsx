@@ -23,6 +23,19 @@ function PostCard({ post }: PostCardProps) {
         }
     });
 
+    const formatDate = (dateValue: Date | string) => {
+        if (!dateValue) return "";
+        const date = new Date(dateValue);
+        return date.toLocaleString('pt-BR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+        });
+    };
+
+
     if (!post) { return }
 
     return (
@@ -32,7 +45,7 @@ function PostCard({ post }: PostCardProps) {
                     <h4>{post.title} -</h4>
                     <span><strong>{post.authorName}</strong></span>
                 </div>
-                <span><strong>{post.createdAt.toLocaleString()}</strong></span>
+                <span>{formatDate(post.createdAt)}</span>
             </div>
 
             <div className='post-body'>
